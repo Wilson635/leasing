@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, intial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+    <script src="{{ url_for('static', filename='countdown.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: "Afacad Flux", sans-serif;
+            font-optical-sizing: auto;
+            font-style: normal;
+            font-variation-settings: "slnt" 0;
+        }
+    </style>
+</head>
+<body class="p-3">
+<script src="{{ url_for('.static', filename='js/bootstrap.min.js') }}"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<div class="container-sm ">
+    <div class="rounded-2xl p-3 my-5">
+        {% block content %} {% endblock %}
+    </div>
+</div>
+{#<footer>#}
+{#    <p>Copyright &copy DSI 2023</p>#}
+{#</footer>#}
+<footer class="w-full bg-white border-t border-gray-200 sticky bottom-0 left-0 z-20 ">
+    <div class="mx-auto max-w-7xl">
+        <!--Grid-->
+        <div class="block py-3">
+            <div class="flex items-center justify-center flex-col lg:justify-between lg:flex-row">
+                <span class="text-sm text-gray-500">
+                    &copy; <a href="https://pagedone.io/">DSI</a> <span id="year"></span>, All rights reserved.
+                </span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>

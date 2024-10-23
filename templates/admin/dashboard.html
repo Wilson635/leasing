@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: "Afacad Flux", sans-serif;
+            font-optical-sizing: auto;
+            font-style: normal;
+            font-variation-settings: "slnt" 0;
+        }
+    </style>
+</head>
+<body class="bg-blue-50 text-gray-900">
+<main class="lg:px-28 px-8 py-16 lg:py-24">
+    <h1 class="text-5xl font-bold">Admin Dashboard</h1>
+    <p class="text-lg mt-4">Welcome back, 👋!</p>
+
+    <!-- Leasing en cours -->
+    <p class="text-lg mt-4 bg-blue-100 text-blue-500 px-4 py-1 rounded-full max-w-fit">vous avez {{ total_count }}
+        leasing{{ 's' if total_count != 1 else '' }} en cours.</p>
+
+    <!-- Tableau d'historique des leasings -->
+    <div class="w-full bg-white shadow-xl rounded-2xl mt-8">
+        <header class="px-4 py-3 border-b flex justify-between border-slate-200">
+            <h2 class="font-semibold text-slate-900">Historiques des leasings</h2>
+            <a href="/export_excel"
+               class="text-md font-semibold text-slate-500 border border-slate-200 px-3 py-1 rounded-md hover:bg-slate-100 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32">
+                    <defs>
+                        <linearGradient id="vscodeIconsFileTypeExcel0" x1="4.494" x2="13.832" y1="-2092.086"
+                                        y2="-2075.914" gradientTransform="translate(0 2100)"
+                                        gradientUnits="userSpaceOnUse">
+                            <stop offset="0" stop-color="#18884f"/>
+                            <stop offset=".5" stop-color="#117e43"/>
+                            <stop offset="1" stop-color="#0b6631"/>
+                        </linearGradient>
+                    </defs>
+                    <path fill="#185c37"
+                          d="M19.581 15.35L8.512 13.4v14.409A1.19 1.19 0 0 0 9.705 29h19.1A1.19 1.19 0 0 0 30 27.809V22.5Z"/>
+                    <path fill="#21a366"
+                          d="M19.581 3H9.705a1.19 1.19 0 0 0-1.193 1.191V9.5L19.581 16l5.861 1.95L30 16V9.5Z"/>
+                    <path fill="#107c41" d="M8.512 9.5h11.069V16H8.512Z"/>
+                    <path d="M16.434 8.2H8.512v16.25h7.922a1.2 1.2 0 0 0 1.194-1.191V9.391A1.2 1.2 0 0 0 16.434 8.2"
+                          opacity="0.1"/>
+                    <path d="M15.783 8.85H8.512V25.1h7.271a1.2 1.2 0 0 0 1.194-1.191V10.041a1.2 1.2 0 0 0-1.194-1.191"
+                          opacity="0.2"/>
+                    <path d="M15.783 8.85H8.512V23.8h7.271a1.2 1.2 0 0 0 1.194-1.191V10.041a1.2 1.2 0 0 0-1.194-1.191"
+                          opacity="0.2"/>
+                    <path d="M15.132 8.85h-6.62V23.8h6.62a1.2 1.2 0 0 0 1.194-1.191V10.041a1.2 1.2 0 0 0-1.194-1.191"
+                          opacity="0.2"/>
+                    <path fill="url(#vscodeIconsFileTypeExcel0)"
+                          d="M3.194 8.85h11.938a1.193 1.193 0 0 1 1.194 1.191v11.918a1.193 1.193 0 0 1-1.194 1.191H3.194A1.19 1.19 0 0 1 2 21.959V10.041A1.19 1.19 0 0 1 3.194 8.85"/>
+                    <path fill="#fff"
+                          d="m5.7 19.873l2.511-3.884l-2.3-3.862h1.847L9.013 14.6c.116.234.2.408.238.524h.017q.123-.281.26-.546l1.342-2.447h1.7l-2.359 3.84l2.419 3.905h-1.809l-1.45-2.711A2.4 2.4 0 0 1 9.2 16.8h-.024a1.7 1.7 0 0 1-.168.351l-1.493 2.722Z"/>
+                    <path fill="#33c481" d="M28.806 3h-9.225v6.5H30V4.191A1.19 1.19 0 0 0 28.806 3"/>
+                    <path fill="#107c41" d="M19.581 16H30v6.5H19.581Z"/>
+                </svg>
+                Excel
+            </a>
+        </header>
+
+        <div class="p-3">
+
+            <!-- Table -->
+            <div class="overflow-x-auto">
+
+                <table class="w-full table-auto">
+                    <thead class="text-[13px] text-slate-500/70">
+                    <tr>
+                        <th class="px-5 py-2 first:pl-3 last:pr-3 bg-slate-100 first:rounded-l last:rounded-r last:pl-5 last:sticky last:right-0">
+                            <div class="font-medium text-left">#</div>
+                        </th>
+                        <th class="px-5 py-2 first:pl-3 last:pr-3 bg-slate-100 first:rounded-l last:rounded-r last:pl-5 last:sticky last:right-0">
+                            <div class="font-medium text-left">Agences</div>
+                        </th>
+                        <th class="px-5 py-2 first:pl-3 last:pr-3 bg-slate-100 first:rounded-l last:rounded-r last:pl-5 last:sticky last:right-0">
+                            <div class="font-medium text-left">Num. Agence</div>
+                        </th>
+                        <th class="px-5 py-2 first:pl-3 last:pr-3 bg-slate-100 first:rounded-l last:rounded-r last:pl-5 last:sticky last:right-0">
+                            <div class="font-medium text-left">Num. Compte</div>
+                        </th>
+                        <th class="px-5 py-2 first:pl-3 last:pr-3 bg-slate-100 first:rounded-l last:rounded-r last:pl-5 last:sticky last:right-0">
+                            <div class="font-medium text-left">Cle</div>
+                        </th>
+                        <th class="px-5 py-2 first:pl-3 last:pr-3 bg-slate-100 first:rounded-l last:rounded-r last:pl-5 last:sticky last:right-0">
+                            <div class="font-medium text-left">Nom</div>
+                        </th>
+                        <th class="px-5 py-2 first:pl-3 last:pr-3 bg-slate-100 first:rounded-l last:rounded-r last:pl-5 last:sticky last:right-0">
+                            <div class="font-medium text-left">Prénoms</div>
+                        </th>
+                        <th class="px-5 py-2 first:pl-3 last:pr-3 bg-slate-100 first:rounded-l last:rounded-r last:pl-5 last:sticky last:right-0">
+                            <div class="font-medium text-left">Besoin</div>
+                        </th>
+                        <th class="px-5 py-2 first:pl-3 last:pr-3 bg-slate-100 first:rounded-l last:rounded-r last:pl-5 last:sticky last:right-0">
+                            <div class="font-medium text-left">Montant</div>
+                        </th>
+                        <th class="px-5 py-2 first:pl-3 last:pr-3 bg-slate-100 first:rounded-l last:rounded-r last:pl-5 last:sticky last:right-0">
+                            <div class="font-medium text-left">Action</div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody class="text-sm font-medium">
+                    {% for row in rows %}
+                        <tr>
+                            <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                <div class="text-slate-500"> {{ loop.index }} </div>
+                            </td>
+                            <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                <div class="text-slate-500">  {{ row[1] }}</div>
+                            </td>
+                            <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                <div class="text-slate-500">  {{ row[2] }}</div>
+                            </td>
+                            <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                <div class="text-slate-500">  {{ row[3] }}</div>
+                            </td>
+                            <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                <div class="text-slate-500">  {{ row[4] }}</div>
+                            </td>
+                            <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                <div class="text-slate-500">  {{ row[5] }}</div>
+                            </td>
+                            <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                <div class="text-slate-500">  {{ row[6] }}</div>
+                            </td>
+                            <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                <div class="text-slate-500">  {{ row[7] }}</div>
+                            </td>
+                            <td class="px-5 py-3 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                <div class="text-slate-500">  {{ row[8] }}</div>
+                            </td>
+                            <td class="px-5 py-3 flex items-center justify-between space-x-2 border-b border-slate-200 last:border-none first:pl-3 last:pr-3 last:bg-gradient-to-r last:from-transparent last:to-white last:to-[12px] last:pl-5 last:sticky last:right-0">
+                                <form action="{{ url_for('edit', id=row[0]) }}" method="post">
+                                    <button class="h-8 whitespace-nowrap justify-center rounded-full px-3 py-1 text-sm font-medium text-indigo-500 hover:text-white border border-slate-200 shadow-sm hover:bg-indigo-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 transition-colors group">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                             viewBox="0 0 24 24"
+                                             class="text-indigo-500 group-hover:text-white font-bold">
+                                            <g fill="none" stroke="#2d9cf4" stroke-linecap="round"
+                                               stroke-linejoin="round" stroke-width="1.5">
+                                                <path d="m16.214 4.982l1.402-1.401a1.982 1.982 0 0 1 2.803 2.803l-1.401 1.402m-2.804-2.804l-5.234 5.234c-1.045 1.046-1.568 1.568-1.924 2.205S8.342 14.561 8 16c1.438-.342 2.942-.7 3.579-1.056s1.16-.879 2.205-1.924l5.234-5.234m-2.804-2.804l2.804 2.804"/>
+                                                <path d="M21 12c0 4.243 0 6.364-1.318 7.682S16.242 21 12 21s-6.364 0-7.682-1.318S3 16.242 3 12s0-6.364 1.318-7.682S7.758 3 12 3"/>
+                                            </g>
+                                        </svg>
+                                    </button>
+                                </form>
+                                <form action="{{ url_for('delete', id=row[0]) }}" method="post">
+
+                                    <button class="h-8 whitespace-nowrap justify-center rounded-full px-3 py-1 text-sm font-medium text-indigo-500 hover:text-white border border-slate-200 shadow-sm hover:bg-indigo-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 transition-colors group">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                             viewBox="0 0 24 24" class="text-red-700 font-bold group-hover:text-white">
+                                            <path fill="currentColor"
+                                                  d="M9.878 4.25a2.251 2.251 0 0 1 4.244 0a.75.75 0 1 0 1.415-.5a3.751 3.751 0 0 0-7.073 0a.75.75 0 1 0 1.414.5M2.75 6a.75.75 0 0 1 .75-.75h17a.75.75 0 0 1 0 1.5h-17A.75.75 0 0 1 2.75 6m2.367 1.752a.75.75 0 0 1 .798.698l.46 6.9c.09 1.347.154 2.285.294 2.99c.137.685.327 1.047.6 1.303c.274.256.648.422 1.34.512c.714.093 1.654.095 3.004.095h.774c1.35 0 2.29-.002 3.004-.095c.692-.09 1.066-.256 1.34-.512c.273-.256.463-.618.6-1.303c.14-.705.204-1.643.294-2.99l.46-6.9a.75.75 0 1 1 1.497.1l-.464 6.952c-.085 1.282-.154 2.318-.316 3.132c-.169.845-.455 1.551-1.047 2.104s-1.315.793-2.17.904c-.822.108-1.86.108-3.145.108h-.88c-1.285 0-2.323 0-3.145-.108c-.855-.111-1.579-.35-2.17-.904c-.592-.553-.878-1.26-1.047-2.104c-.162-.814-.23-1.85-.316-3.132L4.418 8.55a.75.75 0 0 1 .699-.798"/>
+                                        </svg>
+                                    </button>
+                                </form>
+                            </td>
+
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+            <!-- Pagination -->
+            <div class="mt-4 flex justify-between items-center">
+                <!-- Lien pour la page précédente -->
+                {% if page > 1 %}
+                    <a href="{{ url_for('admin', page=page - 1) }}"
+                       class="bg-blue-500 text-white px-4 py-2 rounded {{ 'opacity-50 pointer-events-none' if page == 1 else '' }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white"
+                             viewBox="0 0 20 20"
+                             fill="currentColor">
+                            <path fill-rule="evenodd"
+                                  d="M12.707 15.707a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 111.414 1.414L8.414 10l4.293 4.293a1 1 0 010 1.414z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                    </a>
+                {% endif %}
+                <p>Page {{ page }} sur {{ total_pages }}</p>
+                {% if page < total_pages %}
+                    <a href="{{ url_for('admin', page=page + 1) }}"
+                       class="bg-blue-500 text-white px-4 py-2 rounded {{ 'opacity-50 pointer-events-none' if page == total_pages else '' }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white"
+                             viewBox="0 0 20 20"
+                             fill="currentColor">
+                            <path fill-rule="evenodd"
+                                  d="M7.293 4.293a1 1 0 011.414 0l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414-1.414L11.586 10 7.293 5.707a1 1 0 010-1.414z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

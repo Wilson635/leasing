@@ -1,0 +1,68 @@
+{% extends "layout.html" %} {% block title %} Acceuil {% endblock %} {% block
+content %}
+    <!-- Main Section -->
+    <main class="text-center py-24">
+        <div class="max-w-xl mx-auto">
+            <span class="bg-blue-100 text-blue-500 px-4 py-1 rounded-full">Leasing - En ligne</span>
+
+            <h1 class="text-4xl sm:text-6xl font-bold mt-6">Le leasing simplifié pour votre entreprise</h1>
+            <p class="text-lg text-gray-600 mt-4">
+                Découvrez nos solutions de leasing flexibles qui s'adaptent à vos besoins. Gérez vos actifs
+                efficacement, avec la possibilité de les acquérir en fin de contrat.
+            </p>
+
+            <div class="mt-8">
+                <form class="w-full flex items-center justify-center space-x-2">
+                    {#                    <button type="submit"#}
+                    {#                            class="bg-none text-black w-full px-6 py-3 rounded-md shadow-md hover:bg-blue-200 hover:text-gray-700">#}
+                    {#                        Admin#}
+                    {#                    </button>#}
+                    <a class="inline-flex justify-center w-full whitespace-nowrap rounded-lg hover:text-gray-700 px-6 py-3 text-lg font-medium text-white dark:text-slate-800 bg-gray-800 dark:bg-gray-800 dark:hover:bg-gray-800 shadow focus:outline-none focus:ring focus:ring-slate-500/50 focus-visible:outline-none focus-visible:ring focus-visible:ring-slate-500/50 relative before:absolute before:inset-0 before:rounded-[inherit] before:bg-[linear-gradient(45deg,transparent_25%,theme(colors.white/.5)_50%,transparent_75%,transparent_100%)] dark:before:bg-[linear-gradient(45deg,transparent_25%,theme(colors.white)_50%,transparent_75%,transparent_100%)] before:bg-[length:250%_250%,100%_100%] before:bg-[position:200%_0,0_0] before:bg-no-repeat before:[transition:background-position_0s_ease] hover:before:bg-[position:-100%_0,0_0] hover:before:duration-[1500ms]"
+                       href="{{ url_for('register') }}">Commencer</a>
+                    <a class="inline-flex justify-center w-full whitespace-nowrap rounded-lg hover:text-gray-700 px-6 py-3 text-lg font-medium text-slate-200 dark:text-slate-800 bg-gradient-to-r from-slate-800 to-slate-700 dark:from-slate-200 dark:to-slate-100 dark:hover:bg-slate-100 shadow focus:outline-none focus:ring focus:ring-slate-500/50 focus-visible:outline-none focus-visible:ring focus-visible:ring-slate-500/50 relative before:absolute before:inset-0 before:rounded-[inherit] before:bg-[linear-gradient(45deg,transparent_25%,theme(colors.white/.5)_50%,transparent_75%,transparent_100%)] dark:before:bg-[linear-gradient(45deg,transparent_25%,theme(colors.white)_50%,transparent_75%,transparent_100%)] before:bg-[length:250%_250%,100%_100%] before:bg-[position:200%_0,0_0] before:bg-no-repeat before:[transition:background-position_0s_ease] hover:before:bg-[position:-100%_0,0_0] hover:before:duration-[1500ms]"
+                       href="{{ url_for('verification') }}">Admin</a>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <div class="w-full h-96 rounded-2xl flex gap-9 flex-col items-center justify-center bg-cover bg-center"
+         style="background-image: url({{ url_for('static', filename='img/1710565658.jpg') }});">
+        <!-- Message avant le début ou après l'expiration -->
+        <div id="countdown-message"
+             class="text-white rounded-xl bg-black/25 backdrop-blur-sm py-3 lg:px-16 px-9 max-w-4xl text-2xl sm:text-3xl text-center font-semibold"></div>
+
+        <!-- Compte à rebours -->
+        <div id="countdown-timer" class="flex items-start justify-center w-full gap-1.5 count-down-main">
+            <div class="timer">
+                <div class="rounded-xl bg-black/25 backdrop-blur-sm py-3 min-w-[96px] flex items-center justify-center flex-col gap-1 px-3">
+                    <h3 class="countdown-element days font-manrope font-semibold text-2xl text-white text-center"></h3>
+                    <p class="text-lg uppercase font-normal text-white mt-1 text-center w-full">Days</p>
+                </div>
+            </div>
+
+            <div class="timer">
+                <div class="rounded-xl bg-black/25 backdrop-blur-sm py-3 min-w-[96px] flex items-center justify-center flex-col gap-1 px-3">
+                    <h3 class="countdown-element hours font-manrope font-semibold text-2xl text-white text-center"></h3>
+                    <p class="text-lg uppercase font-normal text-white mt-1 text-center w-full">Hours</p>
+                </div>
+            </div>
+
+            <div class="timer">
+                <div class="rounded-xl bg-black/25 backdrop-blur-sm py-3 min-w-[96px] flex items-center justify-center flex-col gap-1 px-3">
+                    <h3 class="countdown-element minutes font-manrope font-semibold text-2xl text-white text-center"></h3>
+                    <p class="text-lg uppercase font-normal text-white mt-1 text-center w-full">Minutes</p>
+                </div>
+            </div>
+
+            <div class="timer">
+                <div class="rounded-xl bg-black/25 backdrop-blur-sm py-3 min-w-[96px] flex items-center justify-center flex-col gap-1 px-3">
+                    <h3 class="countdown-element seconds font-manrope font-semibold text-2xl text-white text-center"></h3>
+                    <p class="text-lg uppercase font-normal text-white mt-1 text-center w-full">Seconds</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
