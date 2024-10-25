@@ -1,10 +1,138 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "layout.html" %}
+{% block title %} Leasing | Edit {% endblock %}
+{% block content %}
 
-</body>
-</html>
+    <div class="text-bg-light rounded-2xl lg:pb-5">
+        <div class="pt-6">
+            <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8">
+                <div class="lg:col-span-2 lg:border-gray-200 lg:pr-8">
+                    <div class="py-5">
+                        <button class="bg-gray-300 rounded-md  p-2 hover:bg-gray-400">
+                            <a href="{{ url_for('home') }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-700"
+                                     viewBox="0 0 20 20"
+                                     fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                          d="M12.707 15.707a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 111.414 1.414L8.414 10l4.293 4.293a1 1 0 010 1.414z"
+                                          clip-rule="evenodd"/>
+                                </svg>
+                            </a>
+                        </button>
+                    </div>
+                    <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Modifier la demande</h1>
+                </div>
+
+                <div class="mt-4 lg:row-span-3 lg:mt-0 bg-white border rounded-2xl p-2">
+                    <!-- Citation Section -->
+                    <section class="relative isolate overflow-hidden bg-white px-6 py-24 sm:py-32 lg:px-8">
+                        <div class="absolute border-t rounded-2xl inset-0 -z-10 bg-[radial-gradient(45rem_80rem_at_top,theme(white),#e0e7ff)] opacity-20"></div>
+                        <div class="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-white shadow-xl shadow-indigo-600/10 ring-1 ring-indigo-50 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center"></div>
+                        <div class="mx-auto max-w-2xl lg:max-w-4xl">
+                            <figure class="mt-10">
+                                <blockquote
+                                        class="text-center text-xl font-semibold leading-8 text-gray-900 sm:text-2xl sm:leading-9">
+                                    <p>“Investir, c'est semer aujourd'hui pour récolter demain, car l'argent qui dort ne
+                                        fait que perdre la course contre le temps.”</p>
+                                </blockquote>
+                            </figure>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="py-10 lg:col-span-2 lg:col-start-1 lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
+                    <!-- Description and details -->
+                    <div>
+                        <h3 class="sr-only">Description</h3>
+
+                        <div class="space-y-6">
+                            <p class="text-base text-gray-900">Veuillez renseigner les informations ci-dessous.</p>
+                        </div>
+
+                    </div>
+
+                    <div class="mt-10">
+                        <form class="mt-10" action="{{ url_for('edit', id=row['id']) }}" method="POST">
+                            <div>
+                                <fieldset aria-label="Choose a color" class="mt-4">
+                                    <div class="flex items-left flex-col">
+                                        <label class="text-lg font-medium text-gray-900" for="agence">Agence de demande</label>
+                                        <input type="text" id="agence" name="agence" value="{{ row["agence"] }}"
+                                                   class="border w-full rounded-md focus:border-indigo-500 focus:ring-indigo-500 px-2 py-1.5"/>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+                            <h3 class="text-sm font-medium text-gray-900 mt-3">Information sur le compte</h3>
+                            <hr/>
+
+                            <div>
+                                <fieldset aria-label="Choose a color" class="mt-2">
+                                    <div class="grid grid-cols-1 items-left sm:grid-cols-3 gap-x-2">
+                                        <div>
+                                            <label class="text-lg font-medium text-gray-900">Code de l'agence</label>
+                                            <input type="number" id="numag" name="numag" value="{{ row["numag"] }}"
+                                                   class="border w-full rounded-md focus:border-indigo-500 focus:ring-indigo-500 px-2 py-1.5"/>
+                                        </div>
+                                        <div>
+                                            <label class="text-lg font-medium text-gray-900">N° de compte</label>
+                                            <input type="number" id="numcompte" name="numcompte" value="{{ row["numcompte"] }}"
+                                                   class="border w-full rounded-md focus:border-indigo-500 focus:ring-indigo-500 px-2 py-1.5"/>
+                                        </div>
+                                        <div>
+                                            <label class="text-lg font-medium text-gray-900">Clé</label>
+                                            <input type="number" id="cle" name="cle" value="{{ row["cle"] }}"
+                                                   class="border w-full rounded-md focus:border-indigo-500 focus:ring-indigo-500 px-2 py-1.5"/>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+
+                            <h3 class="text-sm font-medium text-gray-900 mt-4">Information sur le demandeur</h3>
+                            <hr/>
+
+                            <div>
+                                <fieldset aria-label="Choose a color" class="mt-2">
+                                    <div class="grid grid-cols-1 items-left sm:grid-cols-2 gap-x-2">
+                                        <div>
+                                            <label for="inputname" class="text-lg font-medium text-gray-900">Nom</label>
+                                            <input type="text" id="nom" name="nom" value="{{ row["nom"] }}"
+                                                   class="border w-full rounded-md focus:border-indigo-500 focus:ring-indigo-500 px-2 py-1.5"/>
+                                        </div>
+                                        <div>
+                                            <label for="inputsurname"
+                                                   class="text-lg font-medium text-gray-900">Prenom</label>
+                                            <input type="text" id="prenom" name="prenom" value="{{ row["prenom"] }}"
+                                                   class="border w-full rounded-md focus:border-indigo-500 focus:ring-indigo-500 px-2 py-1.5"/>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="inputneed"
+                                               class="text-lg font-medium text-gray-900">Besoin</label>
+                                        <input type="text" id="besoin" name="besoin" value="{{ row["besoin"] }}"
+                                               class="border w-full rounded-md focus:border-indigo-500 focus:ring-indigo-500 px-2 py-1.5"/>
+                                    </div>
+                                    <div>
+                                        <label for="inputmontant"
+                                               class="text-lg font-medium text-gray-900">Montant</label>
+                                        <input type="number" id="montant" name="montant" value="{{ row["montant"] }}"
+                                               class="border w-full rounded-md focus:border-indigo-500 focus:ring-indigo-500 px-2 py-1.5"/>
+                                        <h3 class="text-sm font-medium text-gray-900">Ne pas mettre de
+                                            <strong>"."</strong> ni de <strong> ","</strong> lors du
+                                            remplissage</h3>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+                            <button type="submit"
+                                    class="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                Envoyer la demande
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
