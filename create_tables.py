@@ -3,9 +3,9 @@ from psycopg2 import sql
 
 # Paramètres de connexion à PostgreSQL
 db_config = {
-    "dbname": "leasing_db",
-    "user": "postgres",
-    "password": "kally@2003",
+    "dbname": "database_name",
+    "user": "username",
+    "password": "your_password",
     "host": "localhost",
     "port": "5432"  # Exemple: "5432"
 }

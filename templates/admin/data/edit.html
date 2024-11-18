@@ -51,13 +51,13 @@
                     </div>
 
                     <div class="mt-10">
-                        <form class="mt-10" action="{{ url_for('edit', id=row['id']) }}" method="POST">
+                        <form class="mt-10" action="{{ url_for('edit', id=id) }}" method="POST">
                             <div>
                                 <fieldset aria-label="Choose a color" class="mt-4">
                                     <div class="flex items-left flex-col">
                                         <label class="text-lg font-medium text-gray-900" for="agence">Agence de demande</label>
                                         <input type="text" id="agence" name="agence" value="{{ row["agence"] }}"
-                                                   class="border w-full rounded-md focus:border-indigo-500 focus:ring-indigo-500 px-2 py-1.5"/>
+                                               class="border w-full rounded-md focus:border-indigo-500 focus:ring-indigo-500 px-2 py-1.5"/>
                                     </div>
                                 </fieldset>
                             </div>

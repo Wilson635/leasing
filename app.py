@@ -1,4 +1,9 @@
-from flask import Flask, redirect, url_for, request, session, render_template, jsonify, flash
+import io
+from io import BytesIO
+
+import pandas as pd
+import xlsxwriter
+from flask import Flask, redirect, url_for, request, session, render_template, jsonify, flash, send_file
 import psycopg2
 
 app = Flask(__name__)
@@ -124,6 +129,7 @@ def addinfo():
             return render_template('error.html', msg=msg)
     return render_template('formulaire.html', list_agence=list_agence, code_agence=code_agence)
 
+
 @app.route("/register")
 def register():
     return render_template("formulaire.html", list_agence=list_agence, code_agence=code_agence)
@@ -137,31 +143,49 @@ def results():
 @app.route("/edit/<int:id>", methods=['GET', 'POST'])
 @login_required
 def edit(id):
-    if request.method == 'POST':
-        nm = request.form['nm']
-        numag = request.form['numag']
-        numcompte = request.form['numcompte']
-        cle = request.form['cle']
-        nom = request.form['nom']
-        prenom = request.form['prenom']
-        besoin = request.form['besoin']
-        montant = request.form['montant']
-
+    try:
+        # Connexion à la base de données
         with connect_db() as conn:
             with conn.cursor() as cur:
-                cur.execute("""
-                    UPDATE leasing_db
-                    SET agence= %s, num_ag= %s, num_compte= %s, cle= %s, nom= %s, prenom= %s, besoin= %s, montant= %s
-                    WHERE id=%s
-                """, (nm, numag, numcompte, cle, nom, prenom, besoin, montant, id))
-            conn.commit()
-            msg = "La demande a été mise à jour avec succès"
-            flash(msg, 'success')
-            return render_template('resultats.html', msg=msg)
-    return render_template("admin/data/edit.html", id=id)
+                if request.method == 'POST':
+                    # Récupération des données du formulaire
+                    agence = request.form.get('agence')
+                    numag = request.form.get('numag')
+                    numcompte = request.form.get('numcompte')
+                    cle = request.form.get('cle')
+                    nom = request.form.get('nom')
+                    prenom = request.form.get('prenom')
+                    besoin = request.form.get('besoin')
+                    montant = request.form.get('montant')
+
+                    # Mise à jour des données dans la base
+                    cur.execute("""
+                        UPDATE leasing_db 
+                        SET agence = %s, num_ag = %s, num_compte = %s, cle = %s, 
+                            nom = %s, prenom = %s, besoin = %s, montant = %s
+                        WHERE id = %s
+                    """, (agence, numag, numcompte, cle, nom, prenom, besoin, montant, id))
+                    conn.commit()
+
+                    flash("Demande modifiée avec succès", 'success')
+                    return redirect(url_for('admin'))
+
+                # Récupération des données actuelles pour les afficher dans le formulaire
+                cur.execute("SELECT * FROM leasing_db WHERE id = %s", (id,))
+                row = cur.fetchone()
+                if not row:
+                    flash("Demande introuvable", 'danger')
+                    return redirect(url_for('admin'))
+
+        # Chargement du formulaire avec les données actuelles
+        return render_template('edit.html', row=row, id=id)
+    except Exception as e:
+        msg = f"Erreur lors de la modification de la demande: {e}"
+        flash(msg, 'danger')
+        return render_template('error.html', msg=msg)
 
 
-@app.route("/delete/<int:id>")
+@app.route("/delete/<int:id>", methods=['GET', 'POST'])
 @login_required
 def delete(id):
     try:
@@ -175,6 +199,40 @@ def delete(id):
         msg = f"Erreur lors de la suppression de la demande: {e}"
         flash(msg, 'danger')
         return render_template('error.html', msg=msg)
+
+
+@app.route("/export_excel")
+@login_required
+def export_excel():
+    try:
+        with connect_db() as conn:
+            with conn.cursor() as cur:
+                cur.execute("SELECT * FROM leasing_db")
+                rows = cur.fetchall()
+                columns = ["agence", "num_ag", "num_compte", "cle", "nom", "prenom", "besoin", "montant"]
+
+        df = pd.DataFrame(rows, columns=columns)
+        output = io.BytesIO()
+        with pd.ExcelWriter(output, engine='openpyxl') as writer:
+            df.to_excel(writer, index=False, sheet_name='LeasingData')
+        output.seek(0)
+        return send_file(output, mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                         download_name='leasing_data.xlsx', as_attachment=True)
+        # writer = pd.ExcelWriter(output, engine='xlsxwriter')
+        # df.to_excel(writer, index=False, sheet_name='Sheet1')
+        # writer.save()
+        # output.seek(0)
+        # return send_file(output, as_attachment=True, download_name='leasing_data.xlsx')
+    except Exception as e:
+        flash(f"Erreur lors de l'exportation des données: {e}", 'danger')
+        return redirect(url_for("admin"))
+
+
+@app.route("/logout")
+def logout():
+    session.pop('verified', None)
+    flash("Déconnexion réussie", 'info')
+    return redirect("/")
 
 
 if __name__ == "__main__":
