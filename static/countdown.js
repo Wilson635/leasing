@@ -1,5 +1,5 @@
 // Définir la date de début et de fin
-const countdownStart = new Date("December 15, 2024 00:00:00").getTime();
+const countdownStart = new Date("November 15, 2024 00:00:00").getTime();
 const countdownEnd = new Date("January 1, 2025 23:59:59").getTime();
 
 // Calculer les intervalles avant le début de la validité
@@ -42,7 +42,7 @@ const x = setInterval(function () {
     // Affichage pendant la validité du compte à rebours
     else if (now >= countdownStart && now <= countdownEnd) {
         countdownTimer.style.display = 'flex';
-        countdownMessage.innerText = "";
+        countdownMessage.innerText = " Temps restant avant clôture";
 
         // Calculer la différence entre maintenant et la date de fin
         const distance = countdownEnd - now;

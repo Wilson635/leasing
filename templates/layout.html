@@ -3,10 +3,10 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, intial-scale=1">
-    <title>{% block title %}{% endblock %}</title>
+    <title>FTSL Leasing | {% block title %}{% endblock %}</title>
     <script src="{{ url_for('static', filename='countdown.js') }}"></script>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"/>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="{{ url_for('static', filename='tailwindcss.js') }}"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&display=swap" rel="stylesheet">
@@ -22,8 +22,6 @@
     </style>
 </head>
 <body class="p-3">
-<script src="{{ url_for('.static', filename='js/bootstrap.min.js') }}"></script>
-<script src="https://cdn.tailwindcss.com"></script>
 <div class="container-sm ">
     <div class="rounded-2xl p-3 my-5">
         {% block content %} {% endblock %}
@@ -32,7 +30,7 @@
 {#<footer>#}
 {#    <p>Copyright &copy DSI 2023</p>#}
 {#</footer>#}
-<footer class="w-full bg-white border-t border-gray-200 sticky bottom-0 left-0 z-20 ">
+<footer class="w-full bg-white border-t border-gray-200  bottom-0 left-0 z-20 ">
     <div class="mx-auto max-w-7xl">
         <!--Grid-->
         <div class="block py-3">
