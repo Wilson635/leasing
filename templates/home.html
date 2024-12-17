@@ -1,17 +1,27 @@
 {% extends "layout.html" %} {% block title %} Acceuil {% endblock %} {% block
 content %}
+    <nav
+            class="py-3 bg-black rounded-tl-xl rounded-tr-xl border-b-default border-solid border-gray-200 z-10 w-full bg-inherit "
+            id="topnav"
+    >
+        <div class="mx-auto max-w-7xl justify-center items-center lg:px-8">
+            <div class="w-full flex flex-col lg:flex-row">
+                <img src="{{ url_for('static', filename='img/g2.png') }}" class="w-72"  alt="logo">
+            </div>
+        </div>
+    </nav>
+
     <!-- Main Section -->
     <main class="text-center py-24">
-        <div class="max-w-xl mx-auto justify-center items-center">
-            <span class="flex w-52 gap-x-1 items-center bg-blue-100 text-blue-500 mx-auto px-2.5 py-1 rounded-full">
-                <img src="{{ url_for('static', filename='img/favicon.png') }}" class="w-5 h-5" alt="logo">
-                <p>FTSL &bigstar; Leasing - En ligne</p>
-            </span>
+        <div class="max-w-3xl mx-auto justify-center items-center">
 
-            <h1 class="text-4xl sm:text-6xl font-bold mt-6">Le leasing simplifié pour votre entreprise</h1>
-            <p class="text-lg text-gray-600 mt-4">
-                Découvrez nos solutions de leasing flexibles qui s'adaptent à vos besoins. Gérez vos actifs
-                efficacement, avec la possibilité de les acquérir en fin de contrat.
+            <h1 class="text-7xl  uppercase font-bold mt-6">Bienvenue dans notre plateforme leasing</h1>
+            <span class="flex mt-3 w-40 gap-x-1 items-center bg-blue-100 text-blue-500 mx-auto px-2.5 py-1 rounded-full">
+                <p>&bigstar; New generation &bigstar;</p>
+            </span>
+            <p class="text-xl text-gray-600 mt-4">
+                Remplissez votre demande de leasing en quelques clics et en toute simplicité.
+                Respectez les conditions d'utilisation et les consignes mentionées.
             </p>
 
             <div class="mt-8">
@@ -32,7 +42,7 @@ content %}
     <div class="w-full h-96 bg-gradient-to-b from-blue-800 to-blue-700 rounded-2xl flex gap-9 flex-col items-center justify-center bg-cover bg-center">
         <!-- Message avant le début ou après l'expiration -->
         <div
-             class="text-white flex items-center mr-1 pr-1 divide-x divide-blue-200 gap-x-1 justify-center rounded-xl bg-black/25 backdrop-blur-sm py-3 lg:px-16 px-9 max-w-4xl text-2xl sm:text-3xl text-center font-semibold">
+                class="text-white flex items-center mr-1 pr-1 divide-x divide-blue-200 gap-x-1 justify-center rounded-xl bg-black/25 backdrop-blur-sm py-3 lg:px-16 px-9 max-w-4xl text-2xl sm:text-3xl text-center font-semibold">
             <div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
                     <g fill="none">

@@ -8,7 +8,7 @@
                 <div class="lg:col-span-2 lg:border-gray-200 lg:pr-8">
                     <div class="py-5">
                         <button class="bg-gray-300 rounded-md  p-2 hover:bg-gray-400">
-                            <a href="{{ url_for('home') }}">
+                            <a href="{{ url_for('admin') }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-700"
                                      viewBox="0 0 20 20"
                                      fill="currentColor">
@@ -56,7 +56,7 @@
                                 <fieldset aria-label="Choose a color" class="mt-4">
                                     <div class="flex items-left flex-col">
                                         <label class="text-lg font-medium text-gray-900" for="agence">Agence de demande</label>
-                                        <input type="text" id="agence" name="agence" value="{{ row["agence"] }}"
+                                        <input type="text" id="agence" name="agence" value="{{ row[1] }}"
                                                class="border w-full rounded-md focus:border-indigo-500 focus:ring-indigo-500 px-2 py-1.5"/>
                                     </div>
                                 </fieldset>
@@ -70,17 +70,17 @@
                                     <div class="grid grid-cols-1 items-left sm:grid-cols-3 gap-x-2">
                                         <div>
                                             <label class="text-lg font-medium text-gray-900">Code de l'agence</label>
-                                            <input type="number" id="numag" name="numag" value="{{ row["numag"] }}"
+                                            <input type="number" id="numag" name="numag" value="{{ row[2] }}"
                                                    class="border w-full rounded-md focus:border-indigo-500 focus:ring-indigo-500 px-2 py-1.5"/>
                                         </div>
                                         <div>
                                             <label class="text-lg font-medium text-gray-900">N° de compte</label>
-                                            <input type="number" id="numcompte" name="numcompte" value="{{ row["numcompte"] }}"
+                                            <input type="number" id="numcompte" name="numcompte" value="{{ row[3] }}"
                                                    class="border w-full rounded-md focus:border-indigo-500 focus:ring-indigo-500 px-2 py-1.5"/>
                                         </div>
                                         <div>
                                             <label class="text-lg font-medium text-gray-900">Clé</label>
-                                            <input type="number" id="cle" name="cle" value="{{ row["cle"] }}"
+                                            <input type="number" id="cle" name="cle" value="{{ row[4] }}"
                                                    class="border w-full rounded-md focus:border-indigo-500 focus:ring-indigo-500 px-2 py-1.5"/>
                                         </div>
                                     </div>
@@ -96,26 +96,26 @@
                                     <div class="grid grid-cols-1 items-left sm:grid-cols-2 gap-x-2">
                                         <div>
                                             <label for="inputname" class="text-lg font-medium text-gray-900">Nom</label>
-                                            <input type="text" id="nom" name="nom" value="{{ row["nom"] }}"
+                                            <input type="text" id="nom" name="nom" value="{{ row[5] }}"
                                                    class="border w-full rounded-md focus:border-indigo-500 focus:ring-indigo-500 px-2 py-1.5"/>
                                         </div>
                                         <div>
                                             <label for="inputsurname"
                                                    class="text-lg font-medium text-gray-900">Prenom</label>
-                                            <input type="text" id="prenom" name="prenom" value="{{ row["prenom"] }}"
+                                            <input type="text" id="prenom" name="prenom" value="{{ row[6] }}"
                                                    class="border w-full rounded-md focus:border-indigo-500 focus:ring-indigo-500 px-2 py-1.5"/>
                                         </div>
                                     </div>
                                     <div>
                                         <label for="inputneed"
                                                class="text-lg font-medium text-gray-900">Besoin</label>
-                                        <input type="text" id="besoin" name="besoin" value="{{ row["besoin"] }}"
+                                        <input type="text" id="besoin" name="besoin" value="{{ row[7] }}"
                                                class="border w-full rounded-md focus:border-indigo-500 focus:ring-indigo-500 px-2 py-1.5"/>
                                     </div>
                                     <div>
                                         <label for="inputmontant"
                                                class="text-lg font-medium text-gray-900">Montant</label>
-                                        <input type="number" id="montant" name="montant" value="{{ row["montant"] }}"
+                                        <input type="number" id="montant" name="montant" value="{{ row[8] }}"
                                                class="border w-full rounded-md focus:border-indigo-500 focus:ring-indigo-500 px-2 py-1.5"/>
                                         <h3 class="text-sm font-medium text-gray-900">Ne pas mettre de
                                             <strong>"."</strong> ni de <strong> ","</strong> lors du

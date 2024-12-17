@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="{{ url_for('static', filename='tailwindcss.js') }}"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&display=swap" rel="stylesheet">
@@ -63,7 +63,25 @@
     <div class="w-full bg-white shadow-xl rounded-2xl mt-8">
         <header class="px-4 py-3 border-b flex justify-between border-slate-200">
             <h2 class="font-semibold text-slate-900">Historiques des leasings</h2>
-
+            <div>
+                <input
+                        type="text"
+                        id="search-bar"
+                        placeholder="Rechercher par nom ou prénom..."
+                        class="w-75 px-56 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        onkeyup="filterTable()">
+            </div>
+            <div>
+                <select
+                        id="agency-filter"
+                        class="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        onchange="filterTable()">
+                    <option value="">Toutes les agences</option>
+                    {% for agency in list_agence %}
+                        <option value="{{ agency }}">{{ agency }}</option>
+                    {% endfor %}
+                </select>
+            </div>
             <div class="flex items-center space-x-2">
                 <a href="/export_excel"
                    class="text-md font-semibold text-slate-500 border border-slate-200 px-3 py-1 rounded-md hover:bg-slate-100 flex items-center">
@@ -117,7 +135,7 @@
             <!-- Table -->
             <div class="overflow-x-auto">
 
-                <table class="w-full table-auto">
+                <table id="leasing-table" class="w-full table-auto">
                     <thead class="text-[13px] text-slate-500/70">
                     <tr>
                         <th class="px-5 py-2 first:pl-3 last:pr-3 bg-slate-100 first:rounded-l last:rounded-r last:pl-5 last:sticky last:right-0">
@@ -293,7 +311,7 @@
 </main>
 
 <!-- Footer -->
-<footer class="w-full bg-white border-t border-gray-200 sticky bottom-0 left-0 z-20 lg:px-28 px-8">
+<footer class="w-full bg-white border-t border-gray-200 bottom-0 left-0 z-20 lg:px-28 px-8">
     <div class="mx-auto max-w-7xl">
         <!--Grid-->
         <div class="block py-3">
@@ -316,6 +334,32 @@
 
 <script>
     document.getElementById("year").innerHTML = new Date().getFullYear();
+
+    function filterTable() {
+        const searchInput = document.getElementById("search-bar").value.toLowerCase();
+        const agencyFilter = document.getElementById("agency-filter").value.toLowerCase();
+        const table = document.getElementById("leasing-table");
+        const rows = table.getElementsByTagName("tr");
+
+        for (let i = 1; i < rows.length; i++) { // Start from 1 to skip header row
+            const cells = rows[i].getElementsByTagName("td");
+            let rowContainsQuery = false;
+
+            // Check "Nom" and "Prénoms" columns (indices 5 and 6)
+            [5, 6].forEach(index => {
+                if (cells[index] && cells[index].innerText.toLowerCase().includes(searchInput)) {
+                    rowContainsQuery = true;
+                }
+            });
+
+            // Check "Agences" column (index 1)
+            if (agencyFilter && cells[1] && !cells[1].innerText.toLowerCase().includes(agencyFilter)) {
+                rowContainsQuery = false;
+            }
+
+            rows[i].style.display = rowContainsQuery ? "" : "none";
+        }
+    }
 </script>
 </body>
 </html>
